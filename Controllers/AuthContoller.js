@@ -30,12 +30,14 @@ const RegisterController = async (req, res) => {
     const userExists = await User.findOne({ username: req.body.username });
     if (userExists)
       return res.status(400).json({ status: "error", msg: "Username taken." });
+    const api_key = String(Math.floor(Math.random() * 9e15));
     const user = new User({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       date_of_birth: req.body.date_of_birth,
       password: req.body.password,
       username: req.body.username,
+      api_key,
     });
 
     await user.save();

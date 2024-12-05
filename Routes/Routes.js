@@ -1,5 +1,5 @@
 const express = require("express");
-const { getUser } = require("../Controllers/UserController");
+const { getUser, saveUser } = require("../Controllers/UserController");
 const { getAllHotels, getHotel } = require("../Controllers/HotelController");
 const {
   LoginController,
@@ -10,6 +10,7 @@ const { verifyToken, verifyUserWithAPIKey } = require("../utils/verifyToken");
 const router = express.Router();
 //getUser
 router.get("/users/getUser", verifyToken, getUser);
+router.put("/users/saveUser", verifyToken, saveUser);
 //GetHotels
 router.get("/hotels/getAllHotels", verifyUserWithAPIKey, getAllHotels);
 router.get("/getAllHotel/:hotel_id", verifyUserWithAPIKey, getHotel);

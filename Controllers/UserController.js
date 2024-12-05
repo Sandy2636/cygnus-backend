@@ -16,4 +16,22 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser };
+const saveUser = async (req, res) => {
+  try {
+    if (!req.query.user_id)
+      return res
+        .status(400)
+        .json({ status: "error", msg: "Please Provide User id" });
+
+    const user = await User.findByIdAndUpdate(req.query.user_id, {
+      $set: req.body,
+    });
+
+    return res.status(200).json({ status: "success", data: user });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+};
+
+module.exports = { getUser, saveUser };
